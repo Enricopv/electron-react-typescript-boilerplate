@@ -1,4 +1,4 @@
-import PostIt from './PostIt/PostIt'
+import PostIt from './PostIt'
 
 export {
   PostIt

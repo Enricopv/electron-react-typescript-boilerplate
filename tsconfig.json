@@ -18,7 +18,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    
+
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
 
@@ -37,6 +37,7 @@
     "node_modules/@types/**/*.d.ts"
   ],
   "exclude": [
-    "dist"
+    "dist",
+    // "node_modules"
   ]
 }
