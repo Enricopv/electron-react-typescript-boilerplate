@@ -1,14 +1,23 @@
 import * as React from "react"
+import {
+  createStyles,
+  WithStyles,
+  withStyles
+} from "@material-ui/core"
+import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme"
+import { getUserPostIts } from "../../types/schema"
 import TopBar from "../components/TopBar/TopBar"
 import { PostItItem } from "./components"
-import { getUserPostIts } from "../../types/schema"
 
-interface Props {
+const styles = (theme: ThemeOptions) =>
+  createStyles({
+    root: theme.paper
+  })
+interface Props extends WithStyles<typeof styles> {
   data: getUserPostIts | any
 }
 
-
-export default class PostIt extends React.Component<Props> {
+class PostIt extends React.Component<Props> {
   constructor(props: any) {
     super(props)
     // this.state = {
@@ -35,22 +44,16 @@ export default class PostIt extends React.Component<Props> {
   // }
 
   public render() {
-      return (
-        <div>
-          <TopBar />
-          <div
-            style={{
-              backgroundColor: "#FFF176",
-              height: "100vh",
-              color: "black",
-              padding: 5
-            }}
-          >
-            {this.props.data.map((item: any) => (
-              <PostItItem key={item.id} text={item.text} marked={item.marked} />
-            ))}
-          </div>
+    return (
+      <div>
+        <TopBar />
+        <div className={this.props.classes.root}>
+          {this.props.data.map((item: any) => (
+            <PostItItem key={item.id} text={item.text} marked={item.marked} />
+          ))}
         </div>
-      )
+      </div>
+    )
   }
 }
+export default withStyles(styles, { withTheme: true })(PostIt)
