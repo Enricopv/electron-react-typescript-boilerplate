@@ -16,6 +16,7 @@ const styles = (theme: ThemeOptions) =>
   })
 interface Props extends WithStyles<typeof styles> {
   history?: History
+  title: string
 }
 
 class MenuAppBar extends React.Component<Props> {
@@ -40,7 +41,7 @@ class MenuAppBar extends React.Component<Props> {
     return (
       <div>
         <AppBar position="static" className={this.props.classes.root}>
-          <Toolbar>
+          <Toolbar style={{padding: 0}}>
             <div>
               <IconButton
                 // className={classes.menuButton}
@@ -72,9 +73,9 @@ class MenuAppBar extends React.Component<Props> {
               variant="title"
               color="inherit"
               noWrap={true}
-              style={{ flex: 1, textAlign: "center" }}
+              style={{ flex: 1}}
             >
-              To - Do
+              {this.props.title}
             </Typography>
 
             <IconButton

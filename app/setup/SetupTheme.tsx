@@ -47,7 +47,7 @@ const theme = createMyTheme({
   paper: {
     height: "100vh",
     color: "black",
-    padding: 5,
+    padding: 10,
     backgroundColor: yellow[200]
   }
 })

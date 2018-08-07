@@ -46,7 +46,7 @@ class PostIt extends React.Component<Props> {
   public render() {
     return (
       <div>
-        <TopBar />
+        <TopBar title="Text"/>
         <div className={this.props.classes.root}>
           {this.props.data.map((item: any) => (
             <PostItItem key={item.id} text={item.text} marked={item.marked} />

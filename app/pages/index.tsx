@@ -1,5 +1,6 @@
-import PostIt from './PostIt'
+import SinglePostIt from './SinglePostIt'
+
 
 export {
-  PostIt
+  SinglePostIt
 }

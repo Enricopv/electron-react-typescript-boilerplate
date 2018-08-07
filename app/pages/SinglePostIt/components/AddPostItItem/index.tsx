@@ -19,12 +19,11 @@ export default class Index extends React.PureComponent<Props, State> {
     this.onChangeHandler.bind(this)
   }
 
-  onChangeHandler = () => {
+  public onChangeHandler = () => {
     this.setState({
       marked: !this.state.marked
     })
   }
-
 
   public render() {
     return <PostItItem marked={this.state.marked} text={this.props.text} onChangeHandler={this.onChangeHandler} />
