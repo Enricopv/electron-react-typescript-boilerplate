@@ -1,44 +1,74 @@
+import { Typography } from "@material-ui/core"
+import { ApolloClient } from "apollo-client"
 import * as React from "react"
-import PostIt from "./PostIt";
+import { withApollo } from "react-apollo"
+import { AUTH_TOKEN } from "../../setup/constants"
+import {
+  getUserPostIts,
+  getUserPostIts_getUserPostIts_notes,
+  login
+} from "../../types/schema"
+import { QUERY_GET_POSTITS, QUERY_LOGIN } from "./graphql"
+import PostIt from "./PostIt"
 
-const data = [
-  {
-    id: 1,
-    marked: false,
-    text: "[SAF] Forgot Password Page"
-  },
-  {
-    id: 2,
-    marked: false,
-    text: "[SAF] Sign Up Page"
-  },
-  {
-    id: 3,
-    marked: false,
-    text: "[SAF] Reward Details"
-  },
-  {
-    id: 4,
-    marked: false,
-    text: "[SAF] Notifications"
-  },
-  {
-    id: 5,
-    marked: false,
-    text: "[SAF] General Notifications Detail"
-  }
-]
-
-export interface data {
-  id: number
-  marked: boolean
-  text: string
+interface Props {
+  client: ApolloClient<any>
 }
 
-export default class Index extends React.Component {
+interface State {
+  loading: boolean
+  data: getUserPostIts_getUserPostIts_notes[] | null
+}
+
+class Index extends React.Component<Props, State> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      loading: true,
+      data: []
+    }
+    this.login()
+  }
+
+  public login = async () => {
+    const result = await this.props.client.query<login>({
+      query: QUERY_LOGIN,
+      variables: {
+        email: "enricovalbuena@gmail.com",
+        password: "123"
+      }
+    })
+
+    // console.log(result)
+    if (result.errors) {
+      alert(result.errors[0].message)
+    }
+    const { token } = result.data.login
+    await this.props.client.resetStore()
+    await this.saveUserData(token)
+    this.loadData()
+  }
+
+  public saveUserData = (token: string): void => {
+    localStorage.setItem(AUTH_TOKEN, token)
+  }
+
+  public loadData = async () => {
+    const result = await this.props.client.query<getUserPostIts>({
+      query: QUERY_GET_POSTITS
+    })
+    // result.data
+    this.setState({
+      data: result.data.getUserPostIts[0].notes,
+      loading: result.loading
+    })
+  }
+
   public render() {
-    return(
-      <PostIt data={data}/>
-    )
+    if (this.state.loading) {
+      return <Typography variant="title">Loading...</Typography>
+    }
+    return <PostIt data={this.state.data} />
   }
 }
+export default withApollo(Index)

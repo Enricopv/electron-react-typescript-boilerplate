@@ -87,12 +87,12 @@ class MenuAppBar extends React.Component<Props> {
               </Menu>
             </div>
             <Typography
-              variant="body1"
+              variant="title"
               color="inherit"
               noWrap={true}
               style={{ flex: 1, textAlign: "center" }}
             >
-              To-Do
+              To - Do
             </Typography>
 
             <IconButton
