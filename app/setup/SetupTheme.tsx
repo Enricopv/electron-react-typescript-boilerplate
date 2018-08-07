@@ -8,6 +8,7 @@ import Routes from "../routes"
 // import { orange } from '@material-ui/core/colors'
 import yellow from "@material-ui/core/colors/yellow"
 import grey from "@material-ui/core/colors/grey"
+// import { OverflowYProperty } from "../../node_modules/csstype";
 
 // ? Declare new theme variables
 declare module "@material-ui/core/styles/createMuiTheme" {
@@ -19,8 +20,8 @@ declare module "@material-ui/core/styles/createMuiTheme" {
     paper: {
       height: string
       color: string
-      padding: number
       backgroundColor: string
+      // overflowY: OverflowYProperty
     }
   }
 
@@ -32,8 +33,8 @@ declare module "@material-ui/core/styles/createMuiTheme" {
     paper: {
       height: string
       color: string
-      padding: number
       backgroundColor: string
+      // overflowY: OverflowYProperty
     }
   }
 }
@@ -47,8 +48,8 @@ const theme = createMyTheme({
   paper: {
     height: "100vh",
     color: "black",
-    padding: 10,
-    backgroundColor: yellow[200]
+    backgroundColor: yellow[200],
+    // overflowY: "scroll"
   }
 })
 

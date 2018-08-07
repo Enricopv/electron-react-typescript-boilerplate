@@ -20,9 +20,9 @@ class MainViewPort extends React.PureComponent<Props> {
 
   public render() {
     return (
-      <div>
+      <div className={this.props.classes.root}>
         <TopBar title={this.props.title} />
-        <div className={this.props.classes.root}>
+        <div style={{padding: 10, overflowY: "scroll", height: "80vh"}}>
           {this.props.children}
         </div>
       </div>

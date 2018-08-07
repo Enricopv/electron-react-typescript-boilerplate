@@ -1,17 +1,25 @@
-import * as React from "react"
+import Grid from "@material-ui/core/Grid"
+import TextField from "@material-ui/core/TextField"
+import Typography from "@material-ui/core/Typography"
+import DeleteIcon from "@material-ui/icons/CancelOutlined"
 import CheckBoxIcon from "@material-ui/icons/Checkbox"
 import CheckBoxIconOutline from "@material-ui/icons/CheckBoxOutlineBlankOutlined"
-import DeleteIcon from "@material-ui/icons/CancelOutlined"
-import Typography from "@material-ui/core/Typography"
-import Grid from "@material-ui/core/Grid"
+import * as React from "react"
 
 interface Props {
   onChangeHandler: (event: React.MouseEvent) => void
+  toggleEdit: () => void
+  handleKeyPress: (event: React.KeyboardEvent) => void
   marked: boolean
   text: string
+  edit: boolean
 }
 
-export default class SinglePostIt extends React.PureComponent<Props> {
+export default class PostItItem extends React.PureComponent<Props> {
+
+
+
+
   public render() {
     return (
       <Grid
@@ -41,14 +49,19 @@ export default class SinglePostIt extends React.PureComponent<Props> {
           )}
         </Grid>
         <Grid item xs={10} style={{ paddingLeft: 5, cursor: "pointer" }}>
-          <Typography
-            variant="subheading"
-            style={{
-              textDecoration: this.props.marked ? "line-through" : "none"
-            }}
-          >
-            Design the Login Page
-          </Typography>
+          {this.props.edit ? (
+            <TextField defaultValue={this.props.text} onKeyDown={this.props.handleKeyPress} autoFocus/>
+          ) : (
+            <Typography
+              variant="subheading"
+              onClick={this.props.toggleEdit}
+              style={{
+                textDecoration: this.props.marked ? "line-through" : "none"
+              }}
+            >
+              {this.props.text}
+            </Typography>
+          )}
         </Grid>
         <Grid
           item

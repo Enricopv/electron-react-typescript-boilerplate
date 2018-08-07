@@ -1,6 +1,7 @@
 import * as React from "react"
-import SinglePostIt from "./SinglePostIt"
+import { IPostItItem } from "../../types/types"
 import MainViewPort from "../components/MainViewPort/MainViewPort"
+import SinglePostIt from "./SinglePostIt"
 
 const postIt = {
   id: "cjkiv12wq714q0b43fgo05m9s",
@@ -47,36 +48,30 @@ const postIt = {
   ]
 }
 
-interface PostItItem {
-  id: string
-  marked: boolean
-  text: string
-}
-
 interface Props {
   id: string
   user: {
     id: string
-  },
+  }
   title: string
-  notes: PostItItem[]
+  notes: IPostItItem[]
 }
 
 interface State {
-  data: PostItItem[]
+  notes: IPostItItem[]
 }
 
 class Index extends React.PureComponent<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
-      data: postIt.notes
+      notes: postIt.notes
     }
   }
   public render() {
     return (
-      <MainViewPort title={postIt.title}>
-        <SinglePostIt />
+      <MainViewPort title={postIt.title} >
+        <SinglePostIt notes={this.state.notes} />
       </MainViewPort>
     )
   }

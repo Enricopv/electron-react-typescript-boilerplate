@@ -3,6 +3,7 @@ import PostItItem from "./PostItItem"
 
 interface State {
   marked: boolean
+  edit: boolean
 }
 
 interface Props {
@@ -14,9 +15,18 @@ export default class Index extends React.PureComponent<Props, State> {
   constructor(props: any) {
     super(props)
     this.state = {
-      marked: this.props.marked
+      marked: this.props.marked,
+      edit: false
     }
     this.onChangeHandler.bind(this)
+    this.toggleEdit.bind(this)
+    this.handleKeyPress.bind(this)
+  }
+
+  public toggleEdit = () => {
+    this.setState({
+      edit: !this.state.edit
+    })
   }
 
   public onChangeHandler = () => {
@@ -25,7 +35,25 @@ export default class Index extends React.PureComponent<Props, State> {
     })
   }
 
+  public handleKeyPress = (event: React.KeyboardEvent) => {
+    console.log(event.key)
+    if (event.key === "Enter") {
+      this.setState({
+        edit: !this.state.edit
+      })
+    }
+  }
+
   public render() {
-    return <PostItItem marked={this.state.marked} text={this.props.text} onChangeHandler={this.onChangeHandler} />
+    return (
+      <PostItItem
+        marked={this.state.marked}
+        text={this.props.text}
+        edit={this.state.edit}
+        toggleEdit={this.toggleEdit}
+        handleKeyPress={this.handleKeyPress}
+        onChangeHandler={this.onChangeHandler}
+      />
+    )
   }
 }
