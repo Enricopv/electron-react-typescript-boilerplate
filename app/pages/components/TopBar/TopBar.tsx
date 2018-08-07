@@ -2,38 +2,21 @@ import AppBar from "@material-ui/core/AppBar"
 import IconButton from "@material-ui/core/IconButton"
 import Menu from "@material-ui/core/Menu"
 import MenuItem from "@material-ui/core/MenuItem"
-import { Theme, withStyles } from "@material-ui/core/styles"
+import { createStyles, withStyles, WithStyles } from "@material-ui/core/styles"
+import { ThemeOptions } from "@material-ui/core/styles/createMuiTheme"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
-import MenuIcon from "@material-ui/icons/Menu"
 import AddIcon from "@material-ui/icons/Add"
+import MenuIcon from "@material-ui/icons/Menu"
 import * as React from "react"
 
-const styles = {
-  root: {
-    flexGrow: 1
-  },
-  // menuButton: {
-  //   marginLeft: -12,
-  // }
-}
-
-interface ClassProps {
-  root: string
-  appBar: string
-  appBarShift: string
-  menuButton: string
-  hide: string
-  drawerPaper: string
-  drawerPaperClose: string
-  toolbar: string
-  content: string
-}
-
-interface Props {
+const styles = (theme: ThemeOptions) =>
+  createStyles({
+    root: theme.appBar
+  })
+interface Props extends WithStyles<typeof styles> {
   history?: History
-  classes: ClassProps
-  theme?: Theme
+  title: string
 }
 
 class MenuAppBar extends React.Component<Props> {
@@ -51,14 +34,14 @@ class MenuAppBar extends React.Component<Props> {
   }
 
   render() {
-    const { classes } = this.props
+    // const { classes } = this.props
     const { anchorEl } = this.state
     const open = Boolean(anchorEl)
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
+      <div>
+        <AppBar position="static" className={this.props.classes.root}>
+          <Toolbar style={{padding: 0}}>
             <div>
               <IconButton
                 // className={classes.menuButton}
@@ -90,9 +73,9 @@ class MenuAppBar extends React.Component<Props> {
               variant="title"
               color="inherit"
               noWrap={true}
-              style={{ flex: 1, textAlign: "center" }}
+              style={{ flex: 1}}
             >
-              To - Do
+              {this.props.title}
             </Typography>
 
             <IconButton
