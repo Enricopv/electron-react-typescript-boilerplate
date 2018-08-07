@@ -1,28 +1,38 @@
 import * as React from "react"
-import { data } from "."
 import TopBar from "../components/TopBar/TopBar"
 import { PostItItem } from "./components"
+import { getUserPostIts } from "../../types/schema"
 
 interface Props {
-  data: data[]
+  data: getUserPostIts | any
 }
 
 interface State {
-  postItItems: JSX.Element[]
+  postItItems: JSX.Element[] | null
 }
 
 export default class PostIt extends React.Component<Props, State> {
   constructor(props: any) {
     super(props)
-    this.state = {
-      postItItems: this.loadPostIts()
-    }
+    // this.state = {
+    //   postItItems: this.loadPostIts()
+    // }
   }
 
-  loadPostIts = () => {
-    return this.props.data.map((item: any) => (
+  public componentDidMount() {
+    this.loadPostIts
+  }
+
+  public loadPostIts = () => {
+    if(this.props.data) {
+    // const test = this.props.data.getUserPostIts[0]
+    const postItItems = this.props.data.getUserPostIts[0].notes.map((item: any) => (
       <PostItItem key={item.id} text={item.text} marked={item.marked} />
     ))
+    this.setState({
+      postItItems
+    })
+  }
   }
 
   public render() {
