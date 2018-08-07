@@ -10,16 +10,16 @@ interface Props {
   onChangeHandler: (event: React.MouseEvent) => void
   toggleEdit: () => void
   handleKeyPress: (event: React.KeyboardEvent) => void
+  onTextChangeHandler: (event: React.ChangeEvent<HTMLInputElement>) => void
+  deleteNote: () => void
   marked: boolean
   text: string
   edit: boolean
+  id: string
+  autoFocus: boolean
 }
 
-export default class PostItItem extends React.PureComponent<Props> {
-
-
-
-
+export default class PostItItem extends React.Component<Props> {
   public render() {
     return (
       <Grid
@@ -50,7 +50,14 @@ export default class PostItItem extends React.PureComponent<Props> {
         </Grid>
         <Grid item xs={10} style={{ paddingLeft: 5, cursor: "pointer" }}>
           {this.props.edit ? (
-            <TextField defaultValue={this.props.text} onKeyDown={this.props.handleKeyPress} autoFocus/>
+            <TextField
+              id={this.props.id}
+              defaultValue={this.props.text}
+              onChange={this.props.onTextChangeHandler}
+              onKeyDown={this.props.handleKeyPress}
+              autoFocus
+              fullWidth
+            />
           ) : (
             <Typography
               variant="subheading"
@@ -66,7 +73,13 @@ export default class PostItItem extends React.PureComponent<Props> {
         <Grid
           item
           xs={1}
-          style={{ display: "flex", alignItems: "center", paddingRight: 5 }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            paddingRight: 5,
+            cursor: "pointer"
+          }}
+          onClick={this.props.deleteNote}
         >
           <DeleteIcon style={{ color: "#9E9E9E" }} />
         </Grid>
