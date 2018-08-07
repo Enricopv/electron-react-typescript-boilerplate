@@ -1,8 +1,7 @@
 import * as React from "react"
-import Typography from "@material-ui/core/Typography"
-import { PostItItem } from "./components"
 import { data } from "."
-import MenuIcon from "@material-ui/icons/Menu"
+import TopBar from "../components/TopBar/TopBar"
+import { PostItItem } from "./components"
 
 interface Props {
   data: data[]
@@ -28,17 +27,18 @@ export default class PostIt extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div
-        style={{
-          backgroundColor: "#FFF176",
-          height: "100vh",
-          color: "black",
-          padding: 5
-        }}
-      >
-        <div>
-        <MenuIcon/> <Typography variant="title">To-Do (ASANA)</Typography></div>
-        {this.state.postItItems}
+      <div>
+        <TopBar />
+        <div
+          style={{
+            backgroundColor: "#FFF176",
+            height: "100vh",
+            color: "black",
+            padding: 5
+          }}
+        >
+          {this.state.postItItems}
+        </div>
       </div>
     )
   }
